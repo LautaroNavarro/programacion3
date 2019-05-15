@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ejercicio 3</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+        function chequear_numero(numero, numero_de_control){
+            two = false;
+            result = 0
+            for (var i = 0; i < numero.length; i++) {
+                if (parseInt(numero[i] * (two ? 2 : 1)) > 9){
+                    result += -9
+                }
+                result += parseInt(numero[i]) * (two ? 2 : 1);
+                two = !two;
+            }
+            return (result * 9) % 10 == numero_de_control
+        }
+        function get_number_and_validator(form){
+            numero = form.elements[0].value.substr(0, (form.elements[0].value.length - 2));
+            numero_de_control = form.elements[0].value.substr(-1);
+            return [numero, numero_de_control]
+        }
+        function get_and_call(func_call, func_get, element){
+            return func_call(...func_get(element));
+        }
+        function validate_credit_card_from_form(element){
+            result = get_and_call(chequear_numero, get_number_and_validator, element)
+            if (result){
+                alert("Numero valido");
+            }else{
+                alert("Numero no valido");
+            }
+        }
+	</script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Programacion 3</a>
+    </li>
+  </ul>
+</nav>
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-1"></div>
+			<div class="col-10 bg-light">
+				<div class="row">
+					<div class="col-12">
+						<div class="jumbotron">
+							<h1 class="display-4">Programación 3</h1>
+							<p class="lead">Ejercitación</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<form class="form-group" id="formulario">
+							<p>NUMERO A CHEQUEAR</p>
+							<input type="text" name="codigo_cliente" max="99999" min="00" placeholder="1212312345-3" class="form-control">
+							<input type="button" onclick="validate_credit_card_from_form(this.form)" class="btn btn-outline-dark mt-3" value="Enviar">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
